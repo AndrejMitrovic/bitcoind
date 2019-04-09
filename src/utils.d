@@ -8,20 +8,31 @@ import core.stdc.time;
 import std.algorithm;
 import std.conv: to;
 import std.digest;
-import std.range; 
+import std.range;
 import std.stdio;
-
-
 
 static int64_t nTimeOffset = 0;
 
+// encode hex
+string encodeHex(string i)
+{
+    return (cast(ubyte[]) i).toHexString;
+}
 
+// decode hex
+string decodeHex(string i)
+{
+    return to!string(i.chunks(2).map!(digits => cast(char) digits.to!ubyte(16)).array);
+}
 
-// encode hex 
-string encodeHex(string i){return (cast(ubyte[]) i).toHexString;}
-// decode hex 
-string decodeHex(string i){return to!string(i.chunks(2).map!(digits => cast(char) digits.to!ubyte(16)).array);}
 // unixtimestamp
-int64_t GetTime(){return core.stdc.time.time(null);}
+int64_t GetTime()
+{
+    return core.stdc.time.time(null);
+}
+
 // adjusted time
-int64_t GetAdjustedTime(){return GetTime() + nTimeOffset;}
+int64_t GetAdjustedTime()
+{
+    return GetTime() + nTimeOffset;
+}
